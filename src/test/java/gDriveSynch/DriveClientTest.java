@@ -73,6 +73,13 @@ public class DriveClientTest {
 	}
 	
 	@Test
+	public void folderTest() throws Exception {
+		com.google.api.services.drive.model.File actual = sut.createFolder("FolderTest");
+		Assert.assertNotNull(actual);
+		System.out.println("File id " + actual.getId() + " md5 sum " + actual.getMd5Checksum());
+	}
+	
+	@Test
 	public void downloadFile() throws Exception {
 		
 		File actual = sut.downloadFile("1WUvNf8376qRCtU1yf7bVvmnqvHATY-Qg", temporaryFolder.newFolder());

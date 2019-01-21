@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -41,6 +42,24 @@ public class DriveClient {
 
 	public FileList getFileList() {
 		return null;
+	}
+	
+	public com.google.api.services.drive.model.File createFolder(String name, String... parentsIDS) throws IOException {
+		if(null == name) {
+			throw new IllegalArgumentException("Folder must have a valid name");
+		}
+		com.google.api.services.drive.model.File fileMetadata = new com.google.api.services.drive.model.File();
+		
+		fileMetadata.setName(name);
+		if(null != parentsIDS && parentsIDS.length > 0) {
+			fileMetadata.setParents(Arrays.asList(parentsIDS));
+		}
+		
+		fileMetadata.setMimeType("application/vnd.google-apps.folder");
+
+		return drive.files().create(fileMetadata)
+		    .setFields("id")
+		    .execute();
 	}
 
 	public com.google.api.services.drive.model.File uploadFile(File file, String mimeType) throws GoogleJsonResponseException, IOException {
