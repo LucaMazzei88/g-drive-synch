@@ -29,6 +29,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.FileList;
 import com.google.common.base.Joiner;
 
 public class DriveClientTest {
@@ -94,5 +95,21 @@ public class DriveClientTest {
 		}
 		return file;
 	}
+	
+	@Test
+	public void listFile() throws Exception {
+		FileList list = sut.getFileList();
+		printFiles(list.getFiles());
+	}
 
+	private void printFiles(List<com.google.api.services.drive.model.File> files) {
+		if (files == null || files.isEmpty()) {
+			System.out.println("No files found.");
+		} else {
+			System.out.println("Files:");
+			for (com.google.api.services.drive.model.File file : files) {
+				System.out.printf("name=%s id=%s md5=%s\n", file.getName(), file.getId(), file.getMd5Checksum());
+			}
+		}		
+	}
 }

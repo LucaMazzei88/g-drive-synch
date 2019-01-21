@@ -40,8 +40,9 @@ public class DriveClient {
 		this.drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(appName).build();
 	}
 
-	public FileList getFileList() {
-		return null;
+	public FileList getFileList() throws IOException {
+		com.google.api.services.drive.Drive.Files.List list = drive.files().list().setFields("files(id, name, md5Checksum)");
+		return list.execute();
 	}
 	
 	public com.google.api.services.drive.model.File createFolder(String name, String... parentsIDS) throws IOException {
