@@ -1,4 +1,4 @@
-package gDriveSynch;
+package gDriveSynch.driveClient;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -97,4 +97,13 @@ public class DriveClient {
 		
 		return output;
 	}
+	
+	public com.google.api.services.drive.model.File updateFile(String id, File file, String mimeType) throws IOException {
+		
+		com.google.api.services.drive.model.File fileMetadata = new com.google.api.services.drive.model.File();
+		fileMetadata.setName(file.getName());
+		FileContent fileContent = new FileContent(mimeType, file);
+		return drive.files().update(id, fileMetadata, fileContent).execute();
+	}
+	
 }

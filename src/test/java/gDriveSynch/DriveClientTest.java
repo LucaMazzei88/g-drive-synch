@@ -9,8 +9,6 @@ import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.activation.MimeType;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,6 +29,8 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.FileList;
 import com.google.common.base.Joiner;
+
+import gDriveSynch.driveClient.DriveClient;
 
 public class DriveClientTest {
 
@@ -101,7 +101,7 @@ public class DriveClientTest {
 		FileList list = sut.getFileList();
 		printFiles(list.getFiles());
 	}
-
+	
 	private void printFiles(List<com.google.api.services.drive.model.File> files) {
 		if (files == null || files.isEmpty()) {
 			System.out.println("No files found.");

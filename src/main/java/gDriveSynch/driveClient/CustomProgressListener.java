@@ -1,4 +1,4 @@
-package gDriveSynch;
+package gDriveSynch.driveClient;
 
 import java.io.IOException;
 
